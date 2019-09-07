@@ -46,11 +46,16 @@ public abstract class BaseSX implements IUserExtension {
 		}
 		String boTypeName = bo.getTypeName();
 		String boSystemTypeName = bo.getBODefinition().getSystemBOType();
+		String boRootTypeName = bo.getBODefinition().getRootBOType();
 		
 		boolean typeMatches = Arrays.asList(requiredBOTypeNames).contains(boTypeName);
 		
 		if(!boTypeName.equals(boSystemTypeName)) {
 			typeMatches = typeMatches || Arrays.asList(requiredBOTypeNames).contains(boSystemTypeName);
+			
+			if(!boTypeName.equals(boRootTypeName)) {
+				typeMatches = typeMatches || Arrays.asList(requiredBOTypeNames).contains(boRootTypeName);
+			}
 		}
 		
 		if(!typeMatches) {
