@@ -1,6 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <properties>
+    <logging.version>4.0.5.0-1</logging.version>
+    <log4j.version>1.2.9</log4j.version>
+  </properties>
+
   <modelVersion>4.0.0</modelVersion>
+  
   <parent>
     <groupId>edu.calpoly.afd.planon.pom</groupId>
     <artifactId>pomBase</artifactId>
@@ -9,15 +15,25 @@
 
   <groupId>edu.calpoly.afd.planon.lib</groupId>
   <artifactId>PL-CP-Utils</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
   <packaging>jar</packaging>
 
   <name>Planon AFD Utilities</name>
 
-  <properties>
-  </properties>
-
   <dependencies>
+    <dependency>
+      <groupId>com.planonsoftware</groupId>
+      <artifactId>logging</artifactId>
+      <version>${logging.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   
 </project>
