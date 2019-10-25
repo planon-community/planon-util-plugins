@@ -1,11 +1,11 @@
-package edu.calpoly.afd.planon.lib;
+package edu.planon.lib.sx;
 
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Arrays;
-import edu.calpoly.afd.planon.lib.VersionProvider;
-import edu.calpoly.afd.planon.lib.exception.PropertyNotDefined;
-import edu.calpoly.afd.planon.lib.exception.SXException;
+import edu.planon.lib.common.VersionProvider;
+import edu.planon.lib.common.exception.PropertyNotDefined;
+import edu.planon.lib.sx.exception.SXException;
 import nl.planon.hades.userextension.uxinterface.*;
 
 public abstract class BaseSX implements IUserExtension {

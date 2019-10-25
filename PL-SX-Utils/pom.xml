@@ -1,28 +1,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <properties>
+    <ux.api.version>1.6.9.0-1</ux.api.version>
+  </properties>
+
   <parent>
     <groupId>edu.calpoly.afd.planon.pom</groupId>
     <artifactId>pomBase</artifactId>
     <version>1</version>
   </parent>
 
-  <groupId>edu.calpoly.afd.planon.lib</groupId>
-  <artifactId>PL-CP-SX-Utils</artifactId>
-  <version>1.2.0</version>
+  <groupId>edu.planon.lib.sx</groupId>
+  <artifactId>PL-SX-Utils</artifactId>
+  <version>2.0.0</version>
   <packaging>jar</packaging>
 
-  <name>Planon AFD SX Helper Utilities</name>
-
-  <properties>
-    <ux.api.version>1.6.9.0-1</ux.api.version>
-  </properties>
+  <name>Planon Edu Community SX Helper Utilities</name>
 
   <dependencies>
     <dependency>
-      <groupId>edu.calpoly.afd.planon.lib</groupId>
-      <artifactId>PL-CP-Utils</artifactId>
-      <version>1.0.1</version>
+      <groupId>edu.planon.lib.common</groupId>
+      <artifactId>PL-Base-Utils</artifactId>
+      <version>2.0.0</version>
     </dependency>
     <dependency>
       <groupId>com.planonsoftware</groupId>

@@ -1,4 +1,4 @@
-package edu.calpoly.afd.planon.lib.exception;
+package edu.planon.lib.sx.exception;
 
 import nl.planon.hades.userextension.uxinterface.IUXContext;
 
