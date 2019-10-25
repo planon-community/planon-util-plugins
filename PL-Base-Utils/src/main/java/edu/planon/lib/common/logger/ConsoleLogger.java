@@ -1,4 +1,4 @@
-package edu.calpoly.afd.planon.lib.logger;
+package edu.planon.lib.common.logger;
 
 import nl.planon.util.pnlogging.PnLogger;
 

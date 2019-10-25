@@ -1,4 +1,4 @@
-package edu.calpoly.afd.planon.lib.exception;
+package edu.planon.lib.common.exception;
 
 public class PropertyNotDefined extends Exception {
 	private static final long serialVersionUID = 1L;

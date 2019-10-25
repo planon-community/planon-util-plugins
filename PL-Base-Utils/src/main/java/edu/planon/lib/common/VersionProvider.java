@@ -1,4 +1,4 @@
-package edu.calpoly.afd.planon.lib;
+package edu.planon.lib.common;
 
 import java.util.MissingResourceException;
 import java.util.Objects;

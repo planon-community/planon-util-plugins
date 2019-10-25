@@ -1,10 +1,10 @@
-package edu.calpoly.afd.planon.lib;
+package edu.planon.lib.common;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Properties;
 
-import edu.calpoly.afd.planon.lib.exception.PropertyNotDefined;
+import edu.planon.lib.common.exception.PropertyNotDefined;
 
 public class BaseProperties extends Properties {
 	private static final long serialVersionUID = 1L;
