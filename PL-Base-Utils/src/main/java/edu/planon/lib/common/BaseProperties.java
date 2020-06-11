@@ -13,8 +13,27 @@ public class BaseProperties extends Properties {
 	private static final long serialVersionUID = 1L;
 	public static final List<String> TRUE_VALUES = Collections.unmodifiableList(Arrays.asList("true", "t", "y", "yes", "1"));
 
-	public BaseProperties(String parameters) throws IOException {
-		this.load(new StringReader(parameters));
+	public BaseProperties(String propertiesText) throws IOException {
+		if (this.hasConfiguration(propertiesText)) {
+			this.load(new StringReader(propertiesText));
+		}
+	}
+	
+	private boolean hasConfiguration(String arguments) {
+		return arguments != null && !BaseProperties.isBlank(arguments);
+	}
+
+	private static boolean isBlank(CharSequence charseq) {
+		if (charseq == null || charseq.length() == 0) {
+			return true;
+		}
+		int strLen = charseq.length();
+		for (int i = 0; i < strLen; ++i) {
+			if (Character.isWhitespace(charseq.charAt(i)))
+				continue;
+			return false;
+		}
+		return true;
 	}
 	
 	private void assertKeyExists(String key) throws PropertyNotDefined {
