@@ -13,20 +13,28 @@ public class BaseProperties extends Properties {
 	private static final long serialVersionUID = 1L;
 	public static final List<String> TRUE_VALUES = Collections.unmodifiableList(Arrays.asList("true", "t", "y", "yes", "1"));
 
-	public BaseProperties(String propertiesText, Properties defaults) throws IOException {
-		super(defaults);
-		if (this.hasConfiguration(propertiesText)) {
+	public BaseProperties(String propertiesText, String defaultProperties) throws IOException {
+		super(getDefaultProps(defaultProperties));
+		if (BaseProperties.hasConfiguration(propertiesText)) {
 			this.load(new StringReader(propertiesText));
 		}
 	}
 	
 	public BaseProperties(String propertiesText) throws IOException {
-		if (this.hasConfiguration(propertiesText)) {
+		if (BaseProperties.hasConfiguration(propertiesText)) {
 			this.load(new StringReader(propertiesText));
 		}
 	}
 	
-	private boolean hasConfiguration(String arguments) {
+	public static Properties getDefaultProps(String defaultProperties) throws IOException {
+		Properties defaultProps = new Properties();
+		if (BaseProperties.hasConfiguration(defaultProperties)) {
+			defaultProps.load(new StringReader(defaultProperties));
+		}
+        return defaultProps;
+    }
+	
+	private static boolean hasConfiguration(String arguments) {
 		return arguments != null && !BaseProperties.isBlank(arguments);
 	}
 
@@ -44,7 +52,7 @@ public class BaseProperties extends Properties {
 	}
 	
 	private void assertKeyExists(String key) throws PropertyNotDefined {
-		if (!this.containsKey(key)) {
+		if (!this.containsKey(key) && !(this.defaults != null && this.defaults.containsKey(key))) {
 			String msg = String.format("Missing property: %s", key);
 			throw new PropertyNotDefined(msg);
 		}
