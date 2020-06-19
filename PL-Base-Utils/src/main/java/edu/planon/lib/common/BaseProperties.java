@@ -13,6 +13,13 @@ public class BaseProperties extends Properties {
 	private static final long serialVersionUID = 1L;
 	public static final List<String> TRUE_VALUES = Collections.unmodifiableList(Arrays.asList("true", "t", "y", "yes", "1"));
 
+	public BaseProperties(String propertiesText, Properties defaults) throws IOException {
+		super(defaults);
+		if (this.hasConfiguration(propertiesText)) {
+			this.load(new StringReader(propertiesText));
+		}
+	}
+	
 	public BaseProperties(String propertiesText) throws IOException {
 		if (this.hasConfiguration(propertiesText)) {
 			this.load(new StringReader(propertiesText));
