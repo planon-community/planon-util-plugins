@@ -5,7 +5,7 @@ import nl.planon.hades.userextension.uxinterface.IUXContext;
 public class SXException extends Exception {
 	private static final long serialVersionUID = 1L;
 	private final Integer errorCode;
-
+	
 	public SXException(int errorCode, String message) {
 		super(message);
 		this.errorCode = errorCode;

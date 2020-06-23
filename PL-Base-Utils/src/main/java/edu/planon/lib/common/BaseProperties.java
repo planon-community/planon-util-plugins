@@ -12,7 +12,7 @@ import edu.planon.lib.common.exception.PropertyNotDefined;
 public class BaseProperties extends Properties {
 	private static final long serialVersionUID = 1L;
 	public static final List<String> TRUE_VALUES = Collections.unmodifiableList(Arrays.asList("true", "t", "y", "yes", "1"));
-
+	
 	public BaseProperties(String propertiesText, String defaultProperties) throws IOException {
 		super(getDefaultProps(defaultProperties));
 		if (BaseProperties.hasConfiguration(propertiesText)) {
@@ -31,13 +31,13 @@ public class BaseProperties extends Properties {
 		if (BaseProperties.hasConfiguration(defaultProperties)) {
 			defaultProps.load(new StringReader(defaultProperties));
 		}
-        return defaultProps;
-    }
+		return defaultProps;
+	}
 	
 	private static boolean hasConfiguration(String arguments) {
 		return arguments != null && !BaseProperties.isBlank(arguments);
 	}
-
+	
 	private static boolean isBlank(CharSequence charseq) {
 		if (charseq == null || charseq.length() == 0) {
 			return true;
@@ -72,7 +72,7 @@ public class BaseProperties extends Properties {
 		this.assertKeyExists(key);
 		return this.getIntegerProperty(key, 0);
 	}
-
+	
 	public int getIntegerProperty(String key, int defaultValue) {
 		String propertyValue = this.getStringProperty(key, Integer.toString(defaultValue));
 		return Integer.parseInt(propertyValue);
@@ -82,7 +82,7 @@ public class BaseProperties extends Properties {
 		this.assertKeyExists(key);
 		return this.getBooleanProperty(key, false);
 	}
-
+	
 	public boolean getBooleanProperty(String key, boolean defaultValue) {
 		String propertyValue = this.getStringProperty(key, Boolean.toString(defaultValue));
 		return TRUE_VALUES.contains(propertyValue.toLowerCase());
