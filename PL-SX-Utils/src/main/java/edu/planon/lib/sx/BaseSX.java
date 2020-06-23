@@ -9,11 +9,7 @@ import edu.planon.lib.sx.exception.SXException;
 import nl.planon.hades.userextension.uxinterface.*;
 
 public abstract class BaseSX implements IUserExtension {
-	private String description;
-	
-	public BaseSX(String description) {
-		this.description = description;
-	}
+	public abstract String getSXDescription();
 	
 	protected abstract void execute(IUXBusinessObject newBO, IUXBusinessObject oldBO, IUXContext context, String parameters)
 			throws PropertyNotDefined, SXException, IOException;
@@ -36,11 +32,11 @@ public abstract class BaseSX implements IUserExtension {
 	public String getDescription() {
 		if (Objects.isNull(VersionProvider.getBuild())) {
 			if (Objects.isNull(VersionProvider.getVersion())) {
-				return this.description;
+				return this.getSXDescription();
 			}
-			return VersionProvider.getVersion() + " - " + this.description;
+			return VersionProvider.getVersion() + " - " + this.getSXDescription();
 		}
-		return VersionProvider.getVersion() + " [" + VersionProvider.getBuild() + "] - " + this.description;
+		return VersionProvider.getVersion() + " [" + VersionProvider.getBuild() + "] - " + this.getSXDescription();
 	}
 	
 	public final void checkBOType(IUXBusinessObject bo, String... requiredBOTypeNames) throws SXException {
