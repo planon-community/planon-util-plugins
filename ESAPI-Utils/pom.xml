@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <properties>
+    <groupId>edu.planon.lib</groupId>
+    <service.api.version>2.25.1.0-1</service.api.version>
+    <service.api.impl.version>7.0.19.0-1</service.api.impl.version>
+  </properties>
+  
+  <parent>
+    <groupId>edu.planon.pom</groupId>
+    <artifactId>pomBase</artifactId>
+    <version>5</version>
+  </parent>
+  
+  <groupId>edu.planon.lib</groupId>
+  <artifactId>ESAPI-Utils</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  
+  <name>Planon Edu Community ESAPI Utilities</name>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.planonsoftware</groupId>
+      <artifactId>enterprise.service.api</artifactId>
+      <version>${service.api.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.planonsoftware</groupId>
+      <artifactId>enterprise.service.api.impl</artifactId>
+      <version>${service.api.impl.version}</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
