@@ -1,0 +1,28 @@
+<wicket:panel>
+	<div class="PlanonWebBaseDialog PnWebBaseDialog PnWebBusinessErrorDialog" style="position:absolute; width: 100%;">
+		<div class="modalwindow" style="display: flex; flex-direction: column;">
+			<div class="dialogContentPanel" style="display: flex; flex-direction: column; overflow: hidden; flex: 1;">
+				<div class="pnwilayout ui-layout-container">
+					<div class="ui-layout-center ui-layout-pane ui-layout-pane-center">
+						<span>
+							<div class="errorTitle">
+								<span class="error-title-img">
+									<span class="font-icon pnicon-circle-times"></span>
+								</span>
+								<span class="error-title-text h6" wicket:id="header">Error</span>
+							</div>
+							<div class="messageContainer">
+								<div class="errorMessage text4" style="white-space: pre;">
+									<div wicket:id="messages"><span wicket:id=message style="white-space: pre-wrap;"></span></div>
+								</div>
+							</div>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="baseButtonPanel">
+				<input type="button" class="btn btn-default" wicket:id="btnClose">
+			</div>
+		</div>
+	</div>
+</wicket:panel>
