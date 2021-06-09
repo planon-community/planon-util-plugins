@@ -9,11 +9,6 @@ import nl.planon.enterprise.service.api.IPnESMessageHandler;
 import nl.planon.enterprise.service.api.PnESBusinessException;
 
 public class ESErrorUtil {
-	
-	public ESErrorUtil() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	public static List<String> getErrorMessage(Throwable throwable) {
 		List<String> messageList = new ArrayList<String>();
 		
@@ -56,5 +51,4 @@ public class ESErrorUtil {
 		
 		return messageList;
 	}
-	
 }
