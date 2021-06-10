@@ -4,6 +4,8 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -20,8 +22,8 @@ import org.wicketstuff.wiquery.ui.datepicker.DateOption;
 import org.wicketstuff.wiquery.ui.datepicker.InlineDatePicker;
 import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 
-import edu.planon.lib.client.action.CloseModalBehavior;
-import edu.planon.lib.client.action.IAjaxEventListener;
+import edu.planon.lib.client.common.behavior.CloseModalBehavior;
+import edu.planon.lib.client.common.behavior.IAjaxEventListener;
 
 public class PnDatePickerPanel extends Panel {
 	private static final long serialVersionUID = 1L;
@@ -93,7 +95,7 @@ public class PnDatePickerPanel extends Panel {
 			protected void onEvent(AjaxRequestTarget target) {
 				PnDatePickerPanel.this.datePicker.setDefaultModelObject(new Date());
 				for (IAjaxEventListener listener : PnDatePickerPanel.this.completeListeners) {
-					listener.onEvent(this.getEvent(), target);
+					listener.onEvent(this.getEvent(), this.getComponent(), target);
 				}
 				ModalWindow.closeCurrent(target);
 			}
@@ -108,7 +110,7 @@ public class PnDatePickerPanel extends Panel {
 			@Override
 			protected void onEvent(AjaxRequestTarget target) {
 				for (IAjaxEventListener listener : PnDatePickerPanel.this.completeListeners) {
-					listener.onEvent(this.getEvent(), target);
+					listener.onEvent(this.getEvent(), this.getComponent(), target);
 				}
 				ModalWindow.closeCurrent(target);
 			}
@@ -121,8 +123,21 @@ public class PnDatePickerPanel extends Panel {
 		this.add(btnCancel);
 	}
 	
-	public PnDatePickerPanel addUpdateListener(IAjaxEventListener listener) {
-		completeListeners.add(listener);
-		return this;
+	public void setMinDate(Date date) {
+		this.datePicker.setMinDate(new DateOption(date));
+	}
+	
+	public void setMaxDate(Date date) {
+		this.datePicker.setMaxDate(new DateOption(date));
+	}
+	
+	public void addEventListener(IAjaxEventListener eventListeners) {
+		completeListeners.add(eventListeners);
+	}
+
+	public void addEventListener(List<IAjaxEventListener> eventListeners) {
+		if (eventListeners != null && !eventListeners.isEmpty()) {
+			this.completeListeners.addAll(eventListeners);
+		}
 	}
 }
