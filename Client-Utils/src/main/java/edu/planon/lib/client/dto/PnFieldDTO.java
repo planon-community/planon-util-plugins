@@ -1,7 +1,12 @@
 package edu.planon.lib.client.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
 import org.apache.wicket.model.Model;
+
+import edu.planon.lib.client.exception.PnClientException;
 import nl.planon.enterprise.service.api.PnESValueType;
 
 public class PnFieldDTO<T extends Serializable> extends PnFieldDefDTO implements Serializable {
@@ -11,6 +16,35 @@ public class PnFieldDTO<T extends Serializable> extends PnFieldDefDTO implements
 	private Model<T> valueModel = new Model<T>();
 	private T minValue;
 	private T maxValue;
+	
+	public static PnFieldDTO<?> create(String pnName, String label, PnESValueType fieldType) throws PnClientException {
+		switch (fieldType) {
+			case BIG_DECIMAL:
+				return new PnFieldDTO<BigDecimal>(BigDecimal.class, pnName, label, fieldType);
+			case DATE_NEUTRAL:
+			case DATE_TIME:
+			case DATE_TIME_NEUTRAL:
+			case TIME_NEUTRAL:
+				return new PnFieldDTO<Date>(Date.class, pnName, label, fieldType);
+			case INTEGER:
+				return new PnFieldDTO<Integer>(Integer.class, pnName, label, fieldType);
+			case STRING:
+				return new PnFieldDTO<String>(String.class, pnName, label, fieldType);
+			case REFERENCE:
+			case STRING_REFERENCE:
+			case ATTRIBUTES:
+			case AUTOCAD_FILE:
+			case BOOLEAN:
+			case DATABASE_QUERY:
+			case DOCUMENT_FILE:
+			case GPS:
+			case IMAGE_FILE:
+			case PERIOD:
+			case SECUREDOCUMENT:
+			default:
+				throw new PnClientException("The field type "+fieldType.toString()+" is not currently supported.");
+		}
+	}
 	
 	public PnFieldDTO(Class<T> dataType, String pnName) {
 		this(dataType, pnName, null, null);
