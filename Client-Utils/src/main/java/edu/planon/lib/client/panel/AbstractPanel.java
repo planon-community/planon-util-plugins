@@ -3,14 +3,19 @@ package edu.planon.lib.client.panel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 
 public abstract class AbstractPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 	private boolean closePopup;
 	private final ModalWindow popupWindow = new ModalWindow("popupWindow");
 	
-	public AbstractPanel(String id) {
-		super(id);
+	public AbstractPanel(String wicketId) {
+		this(wicketId, null);
+	}
+	
+	public AbstractPanel(String wicketId, final IModel<?> model) {
+		super(wicketId, model);
 		
 		this.popupWindow.setCloseButtonCallback((target) -> {
 			ModalWindow.closeCurrent(target);

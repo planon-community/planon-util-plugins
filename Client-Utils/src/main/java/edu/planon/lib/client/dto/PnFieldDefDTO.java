@@ -12,6 +12,8 @@ public class PnFieldDefDTO implements Serializable {
 	private int decimalScale = 2;
 	private boolean required;
 	private boolean multiSelect;
+	private boolean extended = false;
+	
 	public PnFieldDefDTO(String pnName) {
 		this.pnName = pnName;
 	}
@@ -82,4 +84,11 @@ public class PnFieldDefDTO implements Serializable {
 		this.multiSelect = multiSelect;
 	}
 	
+	public boolean isExtended() {
+		return this.extended;
+	}
+	
+	public void setExtended(boolean extended) {
+		this.extended = extended;
+	}
 }

@@ -1,12 +1,12 @@
-package edu.planon.lib.client.field.listener;
+package edu.planon.lib.client.field.editor.listener;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 
 import edu.planon.lib.client.common.behavior.IAjaxEventListener;
-import edu.planon.lib.client.datepicker.PnDatePickerPanel;
-import edu.planon.lib.client.field.IPnDateField;
+import edu.planon.lib.client.field.editor.IPnDateField;
+import edu.planon.lib.client.panel.datepicker.PnDatePickerPanel;
 
 public class PnDateFieldEditorLinkListener implements IAjaxEventListener {
 	private static final long serialVersionUID = 1L;
@@ -17,22 +17,15 @@ public class PnDateFieldEditorLinkListener implements IAjaxEventListener {
 	public PnDateFieldEditorLinkListener(IPnDateField pnDateField, DateTextField editor, int initialHeight) {
 		this.editor = editor;
 		this.pnDateField = pnDateField;
-		
 		this.initialHeight = initialHeight;
 	}
 	
 	public void onEvent(String event, Component sourceComponent, final AjaxRequestTarget target) {
 		PnDatePickerPanel datePickerPanel = new PnDatePickerPanel(this.pnDateField.getPopupWindow().getContentId(), this.editor.getModel());
-		//Add support for time   //new PnDateTimePanel(this.pnDateField.getModalWindow().getContentId(), this.pnDateField.getUserLocale());
+		//TODO Add support for time
+		//new PnDateTimePanel(this.pnDateField.getModalWindow().getContentId(), this.pnDateField.getUserLocale());
 		
-		datePickerPanel.addEventListener(new IAjaxEventListener() {
-			private static final long serialVersionUID = 1L;
-			
-			@Override
-			public void onEvent(String event, Component sourceComponent, final AjaxRequestTarget target) {
-				target.add(PnDateFieldEditorLinkListener.this.editor);
-			}
-		});
+		datePickerPanel.addEventListener((event2, sourceComponent2, target2) -> target2.add(this.editor));
 		datePickerPanel.addEventListener(this.pnDateField.getEventListeners());
 		
 		if (this.pnDateField.getMinDate() != null) {

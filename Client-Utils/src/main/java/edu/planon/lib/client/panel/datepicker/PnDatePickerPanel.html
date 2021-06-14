@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[PnDatePickerPanel]</title>
+</head>
+<body>
+	<wicket:panel>
+		<div class="modalwindow" style="display: flex; flex-direction: column;">
+			<div class="dialogContentPanel" style="display: flex; flex-direction: column; flex: 1;">
+				<div>
+					<div wicket:id="datePicker"></div>
+				</div>
+			</div>
+			<div class="baseButtonPanel">
+				<input wicket:id="btnToday" type="button" class="btn btn-default cancelButton" />
+				<input wicket:id="btnOk" type="button" class="btn btn-primary okButton" />
+				<input wicket:id="btnCancel" type="button" class="btn btn-default cancelButton" />
+			</div>
+		</div>
+	</wicket:panel>
+</body>
+</html>

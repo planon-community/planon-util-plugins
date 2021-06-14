@@ -9,22 +9,19 @@ public class PnFieldDTO<T extends Serializable> extends PnFieldDefDTO implements
 	private Class<T> dataType;
 	private boolean enabled = true;
 	private Model<T> valueModel = new Model<T>();
+	private T minValue;
+	private T maxValue;
 	
-	public PnFieldDTO(String pnName) {
-		this(pnName, null, null);
+	public PnFieldDTO(Class<T> dataType, String pnName) {
+		this(dataType, pnName, null, null);
 	}
 	
-	public PnFieldDTO(String pnName, String label) {
-		this(pnName, label, null);
+	public PnFieldDTO(Class<T> dataType, String pnName, String label) {
+		this(dataType, pnName, label, null);
 	}
 	
-	public PnFieldDTO(String pnName, String label, PnESValueType fieldType) {
+	public PnFieldDTO(Class<T> dataType, String pnName, String label, PnESValueType fieldType) {
 		super(pnName, label, fieldType);
-	}
-	
-	
-	public PnFieldDTO(String pnName, String label, PnESValueType fieldType, Class<T> dataType) {
-		this(pnName, label, fieldType);
 		this.dataType = dataType;
 	}
 	
@@ -50,5 +47,21 @@ public class PnFieldDTO<T extends Serializable> extends PnFieldDefDTO implements
 	
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public T getMinValue() {
+		return minValue;
+	}
+	
+	public void setMinValue(T minValue) {
+		this.minValue = minValue;
+	}
+	
+	public T getMaxValue() {
+		return maxValue;
+	}
+	
+	public void setMaxValue(T maxValue) {
+		this.maxValue = maxValue;
 	}
 }

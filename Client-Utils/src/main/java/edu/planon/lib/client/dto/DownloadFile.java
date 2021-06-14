@@ -26,5 +26,4 @@ public class DownloadFile implements Serializable {
 	public Bytes length() {
 		return Bytes.bytes(this.byteArr.length);
 	}
-	
 }

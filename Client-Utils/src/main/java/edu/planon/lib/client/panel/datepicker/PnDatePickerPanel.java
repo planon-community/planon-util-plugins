@@ -1,4 +1,4 @@
-package edu.planon.lib.client.datepicker;
+package edu.planon.lib.client.panel.datepicker;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -33,8 +33,8 @@ public class PnDatePickerPanel extends Panel implements IAjaxEventSource {
 	private ArrayList<IAjaxEventListener> completeListeners = new ArrayList<IAjaxEventListener>();
 	private IModel<Date> dateModel;
 	
-	public PnDatePickerPanel(String id, IModel<Date> dateModel) {
-		super(id);
+	public PnDatePickerPanel(String wicketId, IModel<Date> dateModel) {
+		super(wicketId);
 		this.dateModel = dateModel;
 		
 		this.datePicker = createDatePicker("datePicker");
@@ -44,11 +44,13 @@ public class PnDatePickerPanel extends Panel implements IAjaxEventSource {
 		initBaseButtonPanel();
 	}
 	
-	private InlineDatePicker<Date> createDatePicker(String id) {
-		InlineDatePicker<Date> datePicker = new InlineDatePicker<Date>(id);
+	private InlineDatePicker<Date> createDatePicker(String wicketId) {
+		InlineDatePicker<Date> datePicker = new InlineDatePicker<Date>(wicketId);
 		datePicker.setDefaultModel(this.dateModel);
 		datePicker.add(new AttributeAppender("class", "pnwidatepicker", " "));
-		datePicker.setDefaultDate(new DateOption(dateModel.getObject()));
+		if(dateModel.getObject() != null) {
+			datePicker.setDefaultDate(new DateOption(dateModel.getObject()));
+		}
 		datePicker.setChangeMonth(true);
 		datePicker.setChangeYear(true);
 		datePicker.setShowOtherMonths(true);

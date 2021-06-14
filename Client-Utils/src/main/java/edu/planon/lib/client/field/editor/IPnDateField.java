@@ -1,4 +1,4 @@
-package edu.planon.lib.client.field;
+package edu.planon.lib.client.field.editor;
 
 import java.util.Date;
 import java.util.List;

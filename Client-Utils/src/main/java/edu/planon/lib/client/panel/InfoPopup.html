@@ -1,22 +1,32 @@
-<wicket:panel>
-	<div class="PlanonWebBaseDialog PnWebBaseDialog PnWebBusinessErrorDialog" style="position:absolute; width: 100%;">
-		<div class="modalwindow" style="display: flex; flex-direction: column;">
-			<div class="dialogContentPanel" style="display: flex; flex-direction: column; overflow: hidden; flex: 1;">
-				<div class="messagePanel" style="height: 100%; overflow-y: auto; vertical-align: middle;">
-					<div class="messageContent">
-						<span class="font-icon pnicon-circle-information"></span>
-						<div>
-							<wicket:container wicket:id="messages">
-								<div wicket:id="content" style="padding-top: 5px;">
-								</div>
-							</wicket:container>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[InfoPopup]</title>
+</head>
+<body>
+	<wicket:panel>
+		<div class="PlanonWebBaseDialog PnWebBaseDialog PnWebBusinessErrorDialog" style="position:absolute; width: 100%;">
+			<div class="modalwindow" style="display: flex; flex-direction: column;">
+				<div class="dialogContentPanel" style="display: flex; flex-direction: column; overflow: hidden; flex: 1;">
+					<div class="messagePanel" style="height: 100%; overflow-y: auto; vertical-align: middle;">
+						<div class="messageContent">
+							<span class="font-icon pnicon-circle-information"></span>
+							<div>
+								<wicket:container wicket:id="messages">
+									<div wicket:id="content" style="padding-top: 5px;">
+									</div>
+								</wicket:container>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="baseButtonPanel">
-				<input type="button" class="btn btn-default" wicket:id="btnClose">
+				<div class="baseButtonPanel">
+					<input type="button" class="btn btn-default" wicket:id="btnClose" />
+				</div>
 			</div>
 		</div>
-	</div>
-</wicket:panel>
+	</wicket:panel>
+</body>
+</html>
