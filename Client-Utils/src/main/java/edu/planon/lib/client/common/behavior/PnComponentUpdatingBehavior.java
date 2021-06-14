@@ -1,11 +1,12 @@
 package edu.planon.lib.client.common.behavior;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 
-public class PnComponentUpdatingBehavior extends AjaxFormComponentUpdatingBehavior {
+public class PnComponentUpdatingBehavior extends AjaxFormComponentUpdatingBehavior implements IAjaxEventSource {
 	private static final long serialVersionUID = 1L;
 	private List<IAjaxEventListener> eventListeners;
 	
@@ -29,11 +30,13 @@ public class PnComponentUpdatingBehavior extends AjaxFormComponentUpdatingBehavi
 		}
 	}
 	
+	@Override
 	public final void addEventListener(IAjaxEventListener eventListener) {
 		this.initListeners();
 		this.eventListeners.add(eventListener);
 	}
 	
+	@Override
 	public final void addEventListener(List<IAjaxEventListener> eventListeners) {
 		if (eventListeners != null && !eventListeners.isEmpty()) {
 			this.initListeners();
@@ -41,7 +44,9 @@ public class PnComponentUpdatingBehavior extends AjaxFormComponentUpdatingBehavi
 		}
 	}
 	
+	@Override
 	public List<IAjaxEventListener> getEventListeners() {
-		return this.eventListeners;
+		this.initListeners();
+		return Collections.unmodifiableList(this.eventListeners);
 	}
 }

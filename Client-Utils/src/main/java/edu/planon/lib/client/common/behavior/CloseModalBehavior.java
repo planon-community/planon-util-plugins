@@ -1,28 +1,21 @@
 package edu.planon.lib.client.common.behavior;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 
-public class CloseModalBehavior extends AjaxEventBehavior {
+public class CloseModalBehavior extends AjaxEventBehavior implements IAjaxEventSource {
 	private static final long serialVersionUID = 1L;
 	private List<IAjaxEventListener> eventListeners = new ArrayList<IAjaxEventListener>();
 	
-	public CloseModalBehavior(String event) {
-		super(event);
+	public CloseModalBehavior(String triggerEvent) {
+		super(triggerEvent);
 		
-		eventListeners.add(new IAjaxEventListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onEvent(String event, Component sourceComponent, AjaxRequestTarget target) {
-				ModalWindow.closeCurrent(target);
-			}
-		});
+		eventListeners.add((event, sourceComponent, target) -> ModalWindow.closeCurrent(target));
 	}
 	
 	@Override
@@ -35,17 +28,20 @@ public class CloseModalBehavior extends AjaxEventBehavior {
 		}
 	}
 	
+	@Override
 	public final void addEventListener(IAjaxEventListener eventListener) {
 		this.eventListeners.add(eventListener);
 	}
 	
+	@Override
 	public final void addEventListener(List<IAjaxEventListener> eventListeners) {
 		if (eventListeners != null && !eventListeners.isEmpty()) {
 			this.eventListeners.addAll(eventListeners);
 		}
 	}
 	
+	@Override
 	public List<IAjaxEventListener> getEventListeners() {
-		return this.eventListeners;
+		return Collections.unmodifiableList(this.eventListeners);
 	}
 }

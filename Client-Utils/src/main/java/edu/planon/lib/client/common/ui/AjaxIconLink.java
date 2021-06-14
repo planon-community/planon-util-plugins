@@ -1,6 +1,7 @@
 package edu.planon.lib.client.common.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.wicket.Component;
@@ -9,10 +10,11 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
 
 import edu.planon.lib.client.common.behavior.IAjaxEventListener;
+import edu.planon.lib.client.common.behavior.IAjaxEventSource;
 
-public class AjaxIconLink extends AjaxLink<Void> {
+public class AjaxIconLink extends AjaxLink<Void> implements IAjaxEventSource {
 	private static final long serialVersionUID = 1L;
-	private List<IAjaxEventListener> listeners;
+	private List<IAjaxEventListener> eventListeners;
 	
 	public AjaxIconLink(String id, String iconName) {
 		super(id);
@@ -30,26 +32,34 @@ public class AjaxIconLink extends AjaxLink<Void> {
 	
 	@Override
 	public void onClick(AjaxRequestTarget target) {
-		if (this.listeners != null && !this.listeners.isEmpty()) {
-			for (IAjaxEventListener listener : this.listeners) {
+		if (this.eventListeners != null && !this.eventListeners.isEmpty()) {
+			for (IAjaxEventListener listener : this.eventListeners) {
 				listener.onEvent("click", this, target);
 			}
 		}
 	}
 	
 	private void initListeners() {
-		if (this.listeners == null) {
-			this.listeners = new ArrayList<IAjaxEventListener>();
+		if (this.eventListeners == null) {
+			this.eventListeners = new ArrayList<IAjaxEventListener>();
 		}
 	}
-	
+
+	@Override
 	public final void addEventListener(IAjaxEventListener eventListener) {
 		this.initListeners();
-		this.listeners.add(eventListener);
+		this.eventListeners.add(eventListener);
 	}
 	
+	@Override
+	public void addEventListener(List<IAjaxEventListener> eventListeners) {
+		this.initListeners();
+		this.eventListeners.addAll(eventListeners);
+	}
+	
+	@Override
 	public List<IAjaxEventListener> getEventListeners() {
-		return this.listeners;
+		this.initListeners();
+		return Collections.unmodifiableList(this.eventListeners);
 	}
-	
 }

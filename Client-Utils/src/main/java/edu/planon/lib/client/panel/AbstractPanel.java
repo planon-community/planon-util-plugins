@@ -12,23 +12,13 @@ public abstract class AbstractPanel extends Panel {
 	public AbstractPanel(String id) {
 		super(id);
 		
-		this.popupWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
-			private static final long serialVersionUID = 1L;
-			
-			@Override
-			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
-				ModalWindow.closeCurrent(target);
-				return false;
-			}
+		this.popupWindow.setCloseButtonCallback((target) -> {
+			ModalWindow.closeCurrent(target);
+			return false;
 		});
-		this.popupWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onClose(AjaxRequestTarget target) {
-				if (AbstractPanel.this.isClosePopup()) {
-					ModalWindow.closeCurrent(target);
-				}
+		this.popupWindow.setWindowClosedCallback((target) -> {
+			if (this.isClosePopup()) {
+				ModalWindow.closeCurrent(target);
 			}
 		});
 		this.popupWindow.setOutputMarkupId(true);

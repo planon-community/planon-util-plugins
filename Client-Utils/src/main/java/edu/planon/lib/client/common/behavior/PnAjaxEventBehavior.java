@@ -1,13 +1,14 @@
 package edu.planon.lib.client.common.behavior;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
-public class PnAjaxEventBehavior extends AjaxEventBehavior {
+public class PnAjaxEventBehavior extends AjaxEventBehavior implements IAjaxEventSource {
 	private static final long serialVersionUID = 1L;
-	private List<IAjaxEventListener> listeners;
+	private List<IAjaxEventListener> eventListeners;
 	
 	public PnAjaxEventBehavior(String event) {
 		super(event);
@@ -15,33 +16,47 @@ public class PnAjaxEventBehavior extends AjaxEventBehavior {
 	
 	@Override
 	protected void onEvent(AjaxRequestTarget target) {
-		if (this.listeners != null && !this.listeners.isEmpty()) {
+		if (this.eventListeners != null && !this.eventListeners.isEmpty()) {
 			String eventName = getEvent();
-			for (IAjaxEventListener listener : this.listeners) {
+			for (IAjaxEventListener listener : this.eventListeners) {
 				listener.onEvent(eventName, this.getComponent(), target);
 			}
 		}
 	}
 	
 	private void initListeners() {
-		if (this.listeners == null) {
-			this.listeners = new ArrayList<IAjaxEventListener>();
+		if (this.eventListeners == null) {
+			this.eventListeners = new ArrayList<IAjaxEventListener>();
 		}
 	}
 	
+	@Override
 	public final void addEventListener(IAjaxEventListener eventListener) {
 		this.initListeners();
-		this.listeners.add(eventListener);
+		this.eventListeners.add(eventListener);
 	}
 	
+	@Override
 	public final void addEventListener(List<IAjaxEventListener> eventListeners) {
 		if (eventListeners != null && !eventListeners.isEmpty()) {
 			this.initListeners();
-			this.listeners.addAll(eventListeners);
+			this.eventListeners.addAll(eventListeners);
 		}
 	}
 	
+	@Override
 	public List<IAjaxEventListener> getEventListeners() {
-		return this.listeners;
+		this.initListeners();
+		return Collections.unmodifiableList(this.eventListeners);
+	}
+	
+	public static PnAjaxEventBehavior onEvent(String eventName, IAjaxEventListener onEvent) {
+		return new PnAjaxEventBehavior(eventName) {
+			private static final long serialVersionUID = 1L;
+			
+			protected void onEvent(AjaxRequestTarget target) {
+				onEvent.onEvent(eventName, this.getComponent(), target);
+			}
+		};
 	}
 }
