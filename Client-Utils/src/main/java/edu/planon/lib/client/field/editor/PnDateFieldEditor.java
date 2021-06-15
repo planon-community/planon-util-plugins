@@ -9,6 +9,7 @@ import edu.planon.lib.client.common.ui.AjaxIconLink;
 import edu.planon.lib.client.dto.PnFieldDTO;
 import edu.planon.lib.client.dto.PnFieldDefDTO;
 import edu.planon.lib.client.field.editor.listener.PnDateFieldEditorLinkListener;
+import nl.planon.enterprise.service.api.PnESValueType;
 
 public class PnDateFieldEditor extends AbstractPnFieldEditor implements IPnDateField {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +23,18 @@ public class PnDateFieldEditor extends AbstractPnFieldEditor implements IPnDateF
 		
 		this.setOutputMarkupId(true);
 		
-		this.editor = new DateTextField("fieldValueEditor", fieldDTO.getValueModel());
+		String datePattern;
+		if (fieldDTO.getFieldType().equals(PnESValueType.DATE_NEUTRAL)) {
+			datePattern = "MM/dd/yyyy";
+		}
+		else if(fieldDTO.getFieldType().equals(PnESValueType.TIME_NEUTRAL)) {
+			datePattern = "HH:mm";
+		}
+		else {
+			datePattern = "MM/dd/yyyy HH:mm";
+		}
+		
+		this.editor = new DateTextField("fieldValueEditor", fieldDTO.getValueModel(), datePattern);
 		this.editor.setOutputMarkupId(true);
 		
 		this.editor.setLabel(new PropertyModel<String>(fieldDTO, "label"));

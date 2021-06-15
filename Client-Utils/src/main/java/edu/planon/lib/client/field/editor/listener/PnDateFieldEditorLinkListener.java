@@ -1,12 +1,17 @@
 package edu.planon.lib.client.field.editor.listener;
 
+import java.util.Date;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
+import org.apache.wicket.model.IModel;
 
 import edu.planon.lib.client.common.behavior.IAjaxEventListener;
 import edu.planon.lib.client.field.editor.IPnDateField;
 import edu.planon.lib.client.panel.datepicker.PnDatePickerPanel;
+import edu.planon.lib.client.panel.datepicker.PnDateTimePickerPanel;
+import nl.planon.enterprise.service.api.PnESValueType;
 
 public class PnDateFieldEditorLinkListener implements IAjaxEventListener {
 	private static final long serialVersionUID = 1L;
@@ -21,9 +26,19 @@ public class PnDateFieldEditorLinkListener implements IAjaxEventListener {
 	}
 	
 	public void onEvent(String event, Component sourceComponent, final AjaxRequestTarget target) {
-		PnDatePickerPanel datePickerPanel = new PnDatePickerPanel(this.pnDateField.getPopupWindow().getContentId(), this.editor.getModel());
-		//TODO Add support for time
-		//new PnDateTimePanel(this.pnDateField.getModalWindow().getContentId(), this.pnDateField.getUserLocale());
+		IModel<Date> dateModel = this.editor.getModel();
+		Date initialDate = dateModel.getObject();
+		if(initialDate == null) {
+			dateModel.setObject(new Date());
+		}
+		
+		PnDatePickerPanel datePickerPanel;
+		if (this.pnDateField.getFieldDefDTO().getFieldType().equals(PnESValueType.DATE_NEUTRAL)) {
+			datePickerPanel = new PnDatePickerPanel(this.pnDateField.getPopupWindow().getContentId(), dateModel, initialDate);
+		}
+		else {
+			datePickerPanel = new PnDateTimePickerPanel(this.pnDateField.getPopupWindow().getContentId(), dateModel, initialDate);
+		}
 		
 		datePickerPanel.addEventListener((event2, sourceComponent2, target2) -> target2.add(this.editor));
 		datePickerPanel.addEventListener(this.pnDateField.getEventListeners());

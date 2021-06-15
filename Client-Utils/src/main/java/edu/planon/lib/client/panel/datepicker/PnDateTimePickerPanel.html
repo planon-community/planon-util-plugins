@@ -3,7 +3,7 @@
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:wicket="http://wicket.apache.org">
 <head>
-<title>[PnDatePickerPanel]</title>
+<title>[PnDateTimePickerPanel]</title>
 </head>
 <body>
 	<wicket:panel>
@@ -11,6 +11,10 @@
 			<div class="dialogContentPanel" style="display: flex; flex-direction: column; flex: 1;">
 				<div>
 					<div wicket:id="datePicker"></div>
+				</div>
+				<div class="timePanel flex-container">
+					<label class="required">Time</label>
+					<input type="text" class="date-time-field flex-item grow-default" wicket:id="timeField" />
 				</div>
 			</div>
 			<div class="baseButtonPanel">

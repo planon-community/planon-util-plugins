@@ -13,7 +13,6 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.Request;
@@ -26,16 +25,20 @@ import edu.planon.lib.client.common.behavior.CloseModalBehavior;
 import edu.planon.lib.client.common.behavior.IAjaxEventListener;
 import edu.planon.lib.client.common.behavior.IAjaxEventSource;
 import edu.planon.lib.client.common.behavior.PnAjaxEventBehavior;
+import edu.planon.lib.client.exception.PnClientException;
+import edu.planon.lib.client.panel.AbstractPanel;
 
-public class PnDatePickerPanel extends Panel implements IAjaxEventSource {
+public class PnDatePickerPanel extends AbstractPanel implements IAjaxEventSource {
 	private static final long serialVersionUID = 1L;
 	private InlineDatePicker<Date> datePicker;
 	private ArrayList<IAjaxEventListener> completeListeners = new ArrayList<IAjaxEventListener>();
 	private IModel<Date> dateModel;
+	private Date initialDate;
 	
-	public PnDatePickerPanel(String wicketId, IModel<Date> dateModel) {
+	public PnDatePickerPanel(String wicketId, IModel<Date> dateModel, Date initialDate) {
 		super(wicketId);
 		this.dateModel = dateModel;
+		this.initialDate = initialDate;
 		
 		this.datePicker = createDatePicker("datePicker");
 		
@@ -104,17 +107,30 @@ public class PnDatePickerPanel extends Panel implements IAjaxEventSource {
 		//Ok
 		Button btnOk = new Button("btnOk", Model.of("Ok"));
 		btnOk.add(PnAjaxEventBehavior.onEvent("click", (event, sourceComponent, target) -> {
-			for (IAjaxEventListener listener : this.completeListeners) {
-				listener.onEvent(event, sourceComponent, target);
+			try {
+				this.beforeUpdate();
+				
+				for (IAjaxEventListener listener : this.completeListeners) {
+					listener.onEvent(event, sourceComponent, target);
+				}
+				ModalWindow.closeCurrent(target);
 			}
-			ModalWindow.closeCurrent(target);
+			catch (PnClientException exception) {
+				this.showError(target, exception);
+			}
 		}));
 		this.add(btnOk);
 		
 		//Cancel
 		Button btnCancel = new Button("btnCancel", Model.of("Cancel"));
-		btnCancel.add(new CloseModalBehavior("click"));
+		CloseModalBehavior cancelBehavior = new CloseModalBehavior("click");
+		cancelBehavior.addEventListener((event, sourceComponent, target) -> this.datePicker.setDefaultModelObject(this.initialDate));
+		btnCancel.add(cancelBehavior);
 		this.add(btnCancel);
+	}
+	
+	protected void beforeUpdate() throws PnClientException {
+		
 	}
 	
 	public void setMinDate(Date date) {
