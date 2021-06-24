@@ -5,6 +5,14 @@ import nl.planon.enterprise.service.api.IPnESDatabaseQuery;
 import nl.planon.enterprise.service.api.PnESBusinessException;
 
 public final class ESQueryUtils {
+	public static IPnESDatabaseQuery getBOInQuickSelectionDataBaseQuery(String boName) throws PnESBusinessException, ESApiException {
+		IPnESDatabaseQuery query = ESContextUtil.getContext().getBOInQuickSelectionDataBaseQuery(boName);
+		if (query == null) {
+			throw new ESApiException(String.format("BO '%s' not found", boName));
+		}
+		return query;
+	}
+	
 	public static IPnESDatabaseQuery getBOFilterDatabaseQuery(String boName) throws PnESBusinessException, ESApiException {
 		IPnESDatabaseQuery query = ESContextUtil.getContext().getBOFilterDatabaseQuery(boName);
 		if (query == null) {
