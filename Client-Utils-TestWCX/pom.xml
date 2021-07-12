@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <properties>
+    <groupId>edu.planon.lib</groupId>
+    <clientextension.api.version>2.1.4.0-10</clientextension.api.version>
+    <service.api.version>2.25.1.0-1</service.api.version>
+    <service.api.impl.version>7.0.19.0-1</service.api.impl.version>
+  </properties>
+  
+  <parent>
+    <groupId>edu.planon.pom</groupId>
+    <artifactId>pomBase</artifactId>
+    <version>5</version>
+  </parent>
+  
+  <groupId>edu.planon.lib.client.test.wcx</groupId>
+  <artifactId>Client-Utils-TestWCX</artifactId>
+  <version>2.0.0</version>
+  <packaging>bundle</packaging>
+  
+  <name>Client-Utils-TestWCX</name>
+  
+  <dependencies>
+    <dependency>
+      <groupId>edu.planon.lib.client</groupId>
+      <artifactId>Client-Utils</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>edu.planon.lib.common</groupId>
+      <artifactId>PL-Base-Utils</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>edu.planon.lib</groupId>
+      <artifactId>ESAPI-Utils</artifactId>
+      <version>1.1.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.planonsoftware</groupId>
+      <artifactId>clientextension.api</artifactId>
+      <version>${clientextension.api.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.planonsoftware</groupId>
+      <artifactId>enterprise.service.api</artifactId>
+      <version>${service.api.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.planonsoftware</groupId>
+      <artifactId>enterprise.service.api.impl</artifactId>
+      <version>${service.api.impl.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>edu.planon.pom</groupId>
+      <artifactId>pomWicket</artifactId>
+      <version>5</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/java</directory>
+          <excludes>
+            <exclude>**/*.java</exclude>
+          </excludes>
+        <filtering>true</filtering>
+      </resource>
+      <!-- <resource>
+        <directory>../Client-Utils/src/main/java</directory>
+          <excludes>
+            <exclude>**/*.java</exclude>
+          </excludes>
+        <filtering>true</filtering>
+      </resource> -->
+    </resources>
+    <plugins>
+      <!--<plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>../Client-Utils/src/main/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>-->
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>3.5.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <finalName>${project.artifactId}-${project.version}</finalName>
+          <instructions>
+            <Implementation-Version>${project.version}</Implementation-Version>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Bundle-Activator>${project.groupId}.Activator</Bundle-Activator>
+            <Private-Package>${project.groupId}.*</Private-Package>
+            <Export-Package>!${project.groupId}.*</Export-Package>
+            <Import-Package>org.apache.wicket.*,org.apache.log4j.*,!javax.jcr.*,!javax.servlet.*,!org.slf4j,!org.apache.*,
+              !nl.planon.ares,!nl.planon.hades.beans,!nl.planon.hades.client.resourceinitiators,
+              !nl.planon.hades.client.resourcelocators.login,!nl.planon.hades.valueobject.state,
+              !nl.planon.hades.field.definition,org.osgi.framework,!nl.planon.enterprise.service.api.impl,!javax.xml.*,!javax.security.*,
+              !nl.planon.hades.proxyview,
+              !nl.planon.hades.authentication,nl.planon.hades.errorhandling,!javax.xml.parsers;version=!,
+              nl.planon.enterprise.service.api.factory.*;version=!,
+              !nl.planon.json.server.container.services.common.*;version=!,
+              !nl.planon.json.server.container.services.interfaces.*;version=!,
+              *
+            </Import-Package>
+            <Embed-Dependency>Client-Utils,ESAPI-Utils,PL-Base-Utils;scope=compile|runtime</Embed-Dependency>
+            <Embed-Directory>lib</Embed-Directory>
+            <Embed-Transitive>true</Embed-Transitive>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
