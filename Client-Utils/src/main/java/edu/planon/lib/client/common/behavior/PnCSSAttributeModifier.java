@@ -5,7 +5,7 @@ import org.apache.wicket.model.IModel;
 
 public class PnCSSAttributeModifier extends AttributeModifier {
 	private static final long serialVersionUID = 1L;
-
+	
 	public PnCSSAttributeModifier(String cssClassName) {
 		super("class", cssClassName);
 	}

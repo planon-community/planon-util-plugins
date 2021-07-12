@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[PnReferenceSinglePickerPanel]</title>
+</head>
+<body>
+	<wicket:panel>
+		<div class="modalwindow" style="display: flex; flex-direction: column;">
+			<div class="dialogContentPanel" style="display:flex; flex-direction:column; overflow: hidden; flex: 1;">
+				<div class="proxy-container flex-container vertical-nowrap" style="overflow: hidden;flex: 1 1 auto;">
+					<div class="topPanel">
+						<div>
+							<div wicket:id="searchFilter"></div>
+						</div>
+					</div>
+					<div class="layoutProxy flex-item grow flex-container vertical-nowrap pnwilayout ui-layout-container" style="overflow: hidden; position: relative;">
+						<div class="ui-layout-center ui-layout-pane ui-layout-pane-center" style="position: absolute;margin: 0px;inset: 3px 0px;z-index: 0;display: block;visibility: visible;">
+							<div wicket:id="filterTable">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="baseButtonPanel">
+					<input type="button" class="btn btn-primary okButton" wicket:id="btnOk" />
+					<input type="button" class="btn btn-default cancelButton" wicket:id="btnCancel" />
+				</div>
+			</div>
+		</div>
+	</wicket:panel>
+</body>
+</html>

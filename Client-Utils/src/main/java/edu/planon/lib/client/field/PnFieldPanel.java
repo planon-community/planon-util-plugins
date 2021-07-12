@@ -13,13 +13,17 @@ import org.apache.wicket.markup.html.form.SimpleFormComponentLabel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-import edu.planon.lib.client.common.behavior.IAjaxEventListener;
-import edu.planon.lib.client.common.behavior.IAjaxEventSource;
 import edu.planon.lib.client.common.behavior.PnCSSAttributeAppender;
 import edu.planon.lib.client.common.behavior.PnCSSAttributeModifier;
-import edu.planon.lib.client.dto.PnFieldDTO;
+import edu.planon.lib.client.common.dto.PnFieldDTO;
+import edu.planon.lib.client.common.dto.PnReferenceFieldDTO;
+import edu.planon.lib.client.common.event.IAjaxEventListener;
+import edu.planon.lib.client.common.event.IAjaxEventSource;
 import edu.planon.lib.client.field.editor.AbstractPnFieldEditor;
+import edu.planon.lib.client.field.editor.PnBooleanFieldEditor;
 import edu.planon.lib.client.field.editor.PnDateFieldEditor;
+import edu.planon.lib.client.field.editor.PnReferenceFieldEditor;
+import edu.planon.lib.client.field.editor.PnTextAreaFieldEditor;
 import edu.planon.lib.client.field.editor.PnTextFieldEditor;
 import nl.planon.enterprise.service.api.PnESValueType;
 
@@ -35,15 +39,15 @@ public class PnFieldPanel extends Panel implements IAjaxEventSource {
 		this.fieldDTO = fieldDTO;
 		
 		this.setOutputMarkupId(true);
-		initPanel();
+		this.initPanel();
 	}
 	
 	private void initPanel() {
 		this.container = new WebMarkupContainer("editorContainer");
-		this.add(container);
+		this.add(this.container);
 		this.container.setOutputMarkupId(true);
 		
-		this.editor = createEditor("fieldEditor");
+		this.editor = this.createEditor("fieldEditor");
 		this.editor.add(new PnCSSAttributeModifier("fieldEditor"));
 		this.container.add(this.editor);
 		
@@ -56,10 +60,8 @@ public class PnFieldPanel extends Panel implements IAjaxEventSource {
 			}
 		});
 		
-		this.container.add(new PnCSSAttributeAppender("fieldValueEditor"));
-		
-		this.container.add(createLabel("fieldLabel"));
-		this.container.add(createMandatorySymbol("mandatorySymbol"));
+		this.container.add(this.createLabel("fieldLabel"));
+		this.container.add(this.createMandatorySymbol("mandatorySymbol"));
 		
 		this.container.add(new PnCSSAttributeAppender(this.editor.getClassAttribute()));
 		
@@ -74,95 +76,34 @@ public class PnFieldPanel extends Panel implements IAjaxEventSource {
 	
 	@SuppressWarnings("unchecked")
 	protected AbstractPnFieldEditor createEditor(String wicketId) {
-		PnESValueType fieldType = fieldDTO.getFieldType();
-		Class<?> dataType = fieldDTO.getDataType();
+		PnESValueType fieldType = this.fieldDTO.getFieldType();
+		Class<?> dataType = this.fieldDTO.getDataType();
 		
-		if(dataType.isAssignableFrom(Date.class)) {
-			this.editor = new PnDateFieldEditor(wicketId, (PnFieldDTO<Date>)fieldDTO);
+		if (this.fieldDTO instanceof PnReferenceFieldDTO && (fieldType.equals(PnESValueType.REFERENCE) || fieldType.equals(PnESValueType.STRING_REFERENCE))) {
+			this.editor = new PnReferenceFieldEditor(wicketId, (PnReferenceFieldDTO)this.fieldDTO);
 		}
-		else if(fieldType.equals(PnESValueType.STRING)) {
-			if (fieldDTO.isExtended() || fieldDTO.getInputLength() > 300) {
-				//this.editor = new PnTextAreaField(wicketId, fieldDTO);
-			}
-			else {
-				this.editor = new PnTextFieldEditor(wicketId, fieldDTO);
-			}
+		else if (dataType.isAssignableFrom(Date.class)) {
+			this.editor = new PnDateFieldEditor(wicketId, (PnFieldDTO<Date>)this.fieldDTO);
+		}
+		else if (dataType.isAssignableFrom(Boolean.class)) {
+			this.editor = new PnBooleanFieldEditor(wicketId, (PnFieldDTO<Boolean>)this.fieldDTO);
+		}
+		else if (dataType.isAssignableFrom(String.class) && this.fieldDTO.isExtendedField()) {
+			this.editor = new PnTextAreaFieldEditor(wicketId, (PnFieldDTO<String>)this.fieldDTO);
 		}
 		else {
-			this.editor = new PnTextFieldEditor(wicketId, fieldDTO);
-			
+			this.editor = new PnTextFieldEditor(wicketId, this.fieldDTO);
 		}
 		
 		this.editor.setOutputMarkupId(true);
 		return this.editor;
 		
-		
+		//TODO add support for a custom implementation class
 		//Constructor<? extends AbstractPnFieldEditor> fieldValueEditorConstructor;
 		//fieldEditorConstructor = aFieldValueEditor.getConstructor(String.class, PnFieldDTO.class);
 		//this.editor =  fieldEditorConstructor.newInstance(wicketId, fieldDTO);
-		
-		
-		
-		/*if (fieldDTO.isExtended() || fieldDTO.getInputLength() > 300) {
-			//this.editor = new PnTextAreaField(wicketId, fieldDTO);
-		    } else if (fieldType.equals(PnESValueType.REFERENCE) || fieldType.equals(PnESValueType.STRING_REFERENCE)) {
-		     // this.editor = new PnReferenceField(wicketId, fieldDTO);
-		    } else if (fieldType.equals(PnESValueType.DATE_NEUTRAL) || fieldType.equals(PnESValueType.DATE_TIME) || fieldType.equals(PnESValueType.DATE_TIME_NEUTRAL)) {
-		      //this.editor = new PnDateField(wicketId, fieldDTO);
-		    } else if (fieldType.equals(PnESValueType.BOOLEAN)) {
-		     // this.editor = new PnBooleanField(wicketId, fieldDTO);
-		    } else {
-		     // this.editor = new PnTextFieldEditor(wicketId, fieldDTO);
-		    }
-		    */
-		
-		
-		
-		/*Class clazz;
-		switch (fieldDTO.getFieldType()) {
-			case ATTRIBUTES:
-				PnWebAttributeSetFieldValueEditor.class
-			case AUTOCAD_FILE:
-				PnWebPathCADFieldValueEditor.class
-			case BIG_DECIMAL:
-				PnWebBigDecimalFieldValueEditor.class
-			case BOOLEAN:
-				clazz = PnWebBooleanFieldValueEditor.class;
-				break;
-			case DATABASE_QUERY:
-				PnWebSCProxyListListFieldValueEditor.class
-			case DATE_NEUTRAL:
-				PnWebDateNeutralFieldValueEditor.class
-			case DATE_TIME:
-			case DATE_TIME_NEUTRAL:
-				PnWebDateTimeNeutralFieldValueEditor.class
-			case DOCUMENT_FILE:
-				PnWebPathDocumentFieldValueEditor.class
-			case GPS:
-				PnWebGPSFieldValueEditor.class
-			case IMAGE_FILE:
-				PnWebImageFieldValueEditor.class
-			case INTEGER:
-				PnWebIntegerFieldValueEditor.class
-			case PERIOD:
-				PnWebPeriodFieldValueEditor.class
-			case REFERENCE:
-				PnWebAutoCompleteReferenceFieldValueEditor.class
-			case SECUREDOCUMENT:
-				PnWebSecureDocumentFieldValueEditor.class
-			case STRING:
-				PnWebStringFieldValueEditor.class
-				PnWebTextAreaFieldValueEditor.class
-			case STRING_REFERENCE:
-				PnWebAutoCompleteStringLookupFieldValueEditor.class
-			case TIME_NEUTRAL:
-				PnWebTimeNeutralFieldValueEditor.class
-			default:
-				return null;
-			
-		}*/
 	}
-
+	
 	public final AbstractPnFieldEditor getFieldEditor() {
 		return this.editor;
 	}
@@ -176,7 +117,7 @@ public class PnFieldPanel extends Panel implements IAjaxEventSource {
 	protected Component createMandatorySymbol(String wicketId) {
 		Label requiredLabel = new Label(wicketId, Model.of(""));
 		requiredLabel.setOutputMarkupId(true);
-		requiredLabel.setVisible(fieldDTO.isRequired());
+		requiredLabel.setVisible(this.fieldDTO.isRequired());
 		return requiredLabel;
 	}
 	
@@ -200,7 +141,7 @@ public class PnFieldPanel extends Panel implements IAjaxEventSource {
 	@Override
 	protected void onBeforeRender() {
 		super.onBeforeRender();
-		this.setEnabled(fieldDTO.isEnabled());
+		this.setEnabled(this.fieldDTO.isEnabled());
 	}
 	
 	public FormComponent<?> getFormComponent() {

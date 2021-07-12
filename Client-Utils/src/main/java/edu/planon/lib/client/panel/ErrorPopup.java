@@ -3,8 +3,8 @@ package edu.planon.lib.client.panel;
 import java.util.Collections;
 import java.util.List;
 
-import edu.planon.lib.client.exception.PnClientException;
-import edu.planon.lib.client.exception.PnUserException;
+import edu.planon.lib.client.common.exception.PnClientException;
+import edu.planon.lib.client.common.exception.PnUserException;
 import edu.planon.lib.esapi.ESErrorUtil;
 
 public class ErrorPopup extends InfoPopup {
@@ -35,7 +35,7 @@ public class ErrorPopup extends InfoPopup {
 	}
 	
 	private static List<String> getErrorMessage(Throwable throwable) {
-		if((throwable instanceof PnClientException || throwable instanceof PnUserException) && throwable.getCause() == null) {
+		if ((throwable instanceof PnClientException || throwable instanceof PnUserException) && throwable.getCause() == null) {
 			return Collections.singletonList(throwable.getMessage());
 		}
 		else {

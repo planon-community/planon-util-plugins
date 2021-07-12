@@ -7,10 +7,10 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.model.IModel;
 
-import edu.planon.lib.client.common.behavior.IAjaxEventListener;
+import edu.planon.lib.client.common.event.IAjaxEventListener;
+import edu.planon.lib.client.datepicker.PnDatePickerPanel;
+import edu.planon.lib.client.datepicker.PnDateTimePickerPanel;
 import edu.planon.lib.client.field.editor.IPnDateField;
-import edu.planon.lib.client.panel.datepicker.PnDatePickerPanel;
-import edu.planon.lib.client.panel.datepicker.PnDateTimePickerPanel;
 import nl.planon.enterprise.service.api.PnESValueType;
 
 public class PnDateFieldEditorLinkListener implements IAjaxEventListener {
@@ -25,10 +25,11 @@ public class PnDateFieldEditorLinkListener implements IAjaxEventListener {
 		this.initialHeight = initialHeight;
 	}
 	
+	@Override
 	public void onEvent(String event, Component sourceComponent, final AjaxRequestTarget target) {
 		IModel<Date> dateModel = this.editor.getModel();
 		Date initialDate = dateModel.getObject();
-		if(initialDate == null) {
+		if (initialDate == null) {
 			dateModel.setObject(new Date());
 		}
 		

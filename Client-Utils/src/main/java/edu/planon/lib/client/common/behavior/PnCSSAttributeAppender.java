@@ -6,7 +6,7 @@ import org.apache.wicket.model.IModel;
 
 public class PnCSSAttributeAppender extends AttributeAppender {
 	private static final long serialVersionUID = 1L;
-
+	
 	public PnCSSAttributeAppender(String cssClassName) {
 		super("class", cssClassName, " ");
 	}

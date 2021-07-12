@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[PnRecordListPanel]</title>
+</head>
+<body>
+	<wicket:panel>
+		<div class="pn-proxy-panel proxyListPanel">
+			<div class="proxyListWrapper">
+				<table wicket:id="proxyList" class="proxyList pnWebTable" cellspacing="0"></table>
+			</div>
+		</div>
+		<div wicket:id="navigationPanel" class="ProxyNavigator">
+			<div class="proxyNavigatorContent">
+				<div wicket:id="navButtonContainer" class="proxyNavigatorButtonPanel">
+					<div class="proxyNavigatorButton">
+						<input wicket:id="selectAll" type="button" class="btn btn-small btn-secondary" value="All" />
+					</div>
+					<div class="proxyNavigatorButton">
+						<input wicket:id="selectNone" type="button" class="btn btn-small btn-secondary" value="None" />
+					</div>
+				</div>
+				<div class="navigator">
+					<div wicket:id="mainNavigation" class="page-links-panel text2">
+					</div>
+				</div>
+			</div>
+		</div>
+	</wicket:panel>
+</body>
+</html>

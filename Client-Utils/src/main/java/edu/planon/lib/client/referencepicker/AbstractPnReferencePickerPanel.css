@@ -1,0 +1,100 @@
+/*
+----------------------------------------------------------------------------------------------------------------
+	Modal Windows - PnWebPalettePopup (MtoN), PnWebMtoNDialogWithFilter, and PnWebMultiSelectReferenceDialog
+----------------------------------------------------------------------------------------------------------------
+*/
+
+.PnWebPalettePopupProxy,
+.chosenProxyLabel {
+	display: inline-block;
+	height: 100%;
+	overflow: hidden;
+	width: 46%;
+}
+
+.PnWebPalettePopup .PnWebProxyListPanel {
+    margin-right: 0;
+	padding: 0 5px;
+}
+
+div.PnWebPalettePopup div.PnWebPalettePopupProxy {
+	float: left;
+}
+
+div.PnWebPalettePopup div.chosenProxyLabel {
+	float: right;
+}
+
+div.PnWebPalettePopup div.PnWebPalettePopupProxy div.PnWebProxyListPanel,
+div.PnWebPalettePopup div.chosenProxyLabel div.PnWebProxyListPanel {
+	overflow: auto;
+}
+
+.PnWebSelectLayers {
+	height: 100%;
+}
+
+.PnWebPalettePopup .mainPanel,
+.PnWebSelectLayers {
+	white-space: nowrap;
+}
+
+.ProxyLabel {
+  line-height: 2.36;
+  margin: 0 5px;
+}
+
+.PnWebPalettePopup .ProxyNavigator {
+	white-space: normal;
+}
+
+/*
+ * overriding the width applied for report defination dialog for m to n dialog
+ */
+.palette-arrow-buttons {
+  width: 8%;
+}
+
+.pn-arrow-btns-wrapper {
+  width: 8%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 8px 0;
+  box-sizing: border-box;
+}
+
+.arrow-buttons {
+	margin: 0 5px;
+    position: relative;
+    top: 50%;
+}
+
+.arrow-buttons .disabled {
+    opacity: 0.3;
+}
+
+.arrow-buttons a:hover:not('.disabled') {
+    background-color: #8D9DAF;
+}
+
+
+
+/* SP-2895: Addresses scrollbar issue in PnWebMultiSelectReferenceDialog in Firefox / Edge. */
+.PnWebMultiSelectReferenceDialog .PnWebPalettePopup {
+  min-height: 0;
+  flex: 1;
+  -ms-flex: 1 1 auto;
+  overflow: auto;
+}
+
+/* To make sure that the list in a PnWebMultiSelectReferenceDialog will not contain scrollbars by default */
+.PnWebMultiSelectReferenceDialog .modalwindow .PnWebProxyListPanelOuter {
+    height: calc(100% - 35px);
+    display: flex;
+    flex-direction: column;
+}
+
+.selectlayer-listpanel {
+	padding: 5px;
+}

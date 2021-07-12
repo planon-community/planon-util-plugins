@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[SearchPanel]</title>
+</head>
+<body>
+	<wicket:panel>
+		<div class="searchBar tmsSearchBar">
+			<div class="searchPanelsContainer">
+				<div class="searchPanels" wicket:id="repeater">
+					<div wicket:id="searchBar"></div>
+				</div>
+			</div>
+			<div class="searchButtons">
+				<a wicket:id="removeButton" class="btn-square-2" role="button" title="Remove search field"></a>
+				<a wicket:id="addButton" class="btn-square-2" role="button" title="Add search field"></a>
+				<a wicket:id="searchButton" class="btn-square-2 tmsSearchBtn" role="button" title="Search"></a>
+			</div>
+		</div>
+		<script>
+			(function($){
+				$('.tmsSearchBar').closest('form').submit(function(e){
+					e.preventDefault();
+					return false;
+				});
+				$('.tmsSearchBar').on('keydown', '.textEditor', function(e){
+					if(e.keyCode === 13){
+						console.log(e);
+						e.preventDefault();
+						$(this).blur().change();
+						$(this).closest('.tmsSearchBar').find('.tmsSearchBtn').click();
+						return false;
+					}
+				});
+			})(jQuery); 
+		</script>
+	</wicket:panel>
+</body>
+</html>

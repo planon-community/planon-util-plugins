@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[PnMultiValueEditor]</title>
+</head>
+<body>
+	<wicket:panel>
+		<div class="search-editors">
+			<div class="fieldValueEditor">
+				<span class="fieldEditor">
+					<input wicket:id="textEditor1" type="text" class="textEditor" maxlength="50" tabindex="0" placeholder="Search..." />
+				</span>
+				<a wicket:id="editorLink1" class="editor-link " title="Select a value" role="button"></a>
+			</div>
+		</div>
+		<div class="search-editors">
+			<div class="fieldValueEditor">
+				<span class="fieldEditor">
+					<input wicket:id="textEditor2" type="text" class="textEditor" maxlength="50" tabindex="0" placeholder="Search..." />
+				</span>
+				<a wicket:id="editorLink2" class="editor-link " title="Select a value" role="button"></a>
+			</div>
+		</div>
+		<div wicket:id="popupWindow"></div>
+	</wicket:panel>
+</body>
+</html>

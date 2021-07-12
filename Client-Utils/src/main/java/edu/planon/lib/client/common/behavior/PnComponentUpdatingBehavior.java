@@ -3,8 +3,12 @@ package edu.planon.lib.client.common.behavior;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+
+import edu.planon.lib.client.common.event.IAjaxEventListener;
+import edu.planon.lib.client.common.event.IAjaxEventSource;
 
 public class PnComponentUpdatingBehavior extends AjaxFormComponentUpdatingBehavior implements IAjaxEventSource {
 	private static final long serialVersionUID = 1L;
@@ -17,7 +21,7 @@ public class PnComponentUpdatingBehavior extends AjaxFormComponentUpdatingBehavi
 	@Override
 	protected void onUpdate(AjaxRequestTarget target) {
 		if (this.eventListeners != null && !this.eventListeners.isEmpty()) {
-			String eventName = getEvent();
+			String eventName = this.getEvent();
 			for (IAjaxEventListener listener : this.eventListeners) {
 				listener.onEvent(eventName, this.getComponent(), target);
 			}

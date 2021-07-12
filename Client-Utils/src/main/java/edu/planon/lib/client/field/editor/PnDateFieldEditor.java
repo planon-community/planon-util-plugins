@@ -1,13 +1,15 @@
 package edu.planon.lib.client.field.editor;
 
 import java.util.Date;
+
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.PropertyModel;
+
 import edu.planon.lib.client.common.behavior.PnComponentUpdatingBehavior;
-import edu.planon.lib.client.common.ui.AjaxIconLink;
-import edu.planon.lib.client.dto.PnFieldDTO;
-import edu.planon.lib.client.dto.PnFieldDefDTO;
+import edu.planon.lib.client.common.component.AjaxIconLink;
+import edu.planon.lib.client.common.dto.PnFieldDTO;
+import edu.planon.lib.client.common.dto.PnFieldDefDTO;
 import edu.planon.lib.client.field.editor.listener.PnDateFieldEditorLinkListener;
 import nl.planon.enterprise.service.api.PnESValueType;
 
@@ -27,7 +29,7 @@ public class PnDateFieldEditor extends AbstractPnFieldEditor implements IPnDateF
 		if (fieldDTO.getFieldType().equals(PnESValueType.DATE_NEUTRAL)) {
 			datePattern = "MM/dd/yyyy";
 		}
-		else if(fieldDTO.getFieldType().equals(PnESValueType.TIME_NEUTRAL)) {
+		else if (fieldDTO.getFieldType().equals(PnESValueType.TIME_NEUTRAL)) {
 			datePattern = "HH:mm";
 		}
 		else {
@@ -46,7 +48,7 @@ public class PnDateFieldEditor extends AbstractPnFieldEditor implements IPnDateF
 			target.add(this.editor);
 		});
 		this.editor.add(this.fieldBehavior);
-		setEventSource(this.fieldBehavior);
+		this.setEventSource(this.fieldBehavior);
 		
 		AjaxIconLink refButton = this.getReferenceButton();
 		refButton.addEventListener(new PnDateFieldEditorLinkListener(this, this.editor, 305));

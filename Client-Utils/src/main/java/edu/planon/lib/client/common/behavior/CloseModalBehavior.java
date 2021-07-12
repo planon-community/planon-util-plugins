@@ -8,6 +8,9 @@ import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 
+import edu.planon.lib.client.common.event.IAjaxEventListener;
+import edu.planon.lib.client.common.event.IAjaxEventSource;
+
 public class CloseModalBehavior extends AjaxEventBehavior implements IAjaxEventSource {
 	private static final long serialVersionUID = 1L;
 	private List<IAjaxEventListener> eventListeners = new ArrayList<IAjaxEventListener>();
@@ -15,13 +18,13 @@ public class CloseModalBehavior extends AjaxEventBehavior implements IAjaxEventS
 	public CloseModalBehavior(String triggerEvent) {
 		super(triggerEvent);
 		
-		eventListeners.add((event, sourceComponent, target) -> ModalWindow.closeCurrent(target));
+		this.eventListeners.add((event, sourceComponent, target) -> ModalWindow.closeCurrent(target));
 	}
 	
 	@Override
 	protected void onEvent(AjaxRequestTarget target) {
 		if (this.eventListeners != null && !this.eventListeners.isEmpty()) {
-			String eventName = getEvent();
+			String eventName = this.getEvent();
 			for (IAjaxEventListener listener : this.eventListeners) {
 				listener.onEvent(eventName, this.getComponent(), target);
 			}

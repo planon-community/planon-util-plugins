@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[PnBooleanFieldEditor]</title>
+</head>
+<body>
+	<wicket:extend>
+		<span class="booleanRadioGroup">
+			<span wicket:id="radioGroup" role="radiogroup">
+				<span class="radio item0 true">
+					<span class="booleanRadioButtonChoice">
+						<input wicket:id="radioYes" type="radio" class="radiobutton" />
+						<label wicket:id="radioYesLabel" class="radio-btn-label"></label>
+					</span>
+				</span>
+				<span class="radio item1 false">
+					<span class="booleanRadioButtonChoice">
+						<input wicket:id="radioNo" type="radio" class="radiobutton" />
+						<label wicket:id="radioNoLabel" class="radio-btn-label"></label>
+					</span>
+				</span>
+			</span>
+		</span>
+		<wicket:child />
+	</wicket:extend>
+</body>
+</html>

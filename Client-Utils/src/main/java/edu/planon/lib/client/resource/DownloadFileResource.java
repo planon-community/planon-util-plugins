@@ -2,6 +2,7 @@ package edu.planon.lib.client.resource;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
 import org.apache.wicket.request.resource.ContentDisposition;
 import org.apache.wicket.request.resource.ResourceStreamResource;
 import org.apache.wicket.util.lang.Bytes;
@@ -9,15 +10,15 @@ import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.time.Duration;
 
-import edu.planon.lib.client.dto.DownloadFile;
+import edu.planon.lib.client.common.dto.DownloadFile;
 
 public class DownloadFileResource extends ResourceStreamResource {
 	private static final long serialVersionUID = 1L;
 	private DownloadFile downloadFile;
 	
 	public DownloadFileResource() {
-		setContentDisposition(ContentDisposition.ATTACHMENT);
-		setCacheDuration(Duration.NONE);
+		this.setContentDisposition(ContentDisposition.ATTACHMENT);
+		this.setCacheDuration(Duration.NONE);
 	}
 	
 	public DownloadFile getDownloadFile() {
@@ -26,7 +27,7 @@ public class DownloadFileResource extends ResourceStreamResource {
 	
 	public void setDownloadFile(DownloadFile downloadFile) {
 		this.downloadFile = downloadFile;
-		setFileName(downloadFile.getFileName());
+		this.setFileName(downloadFile.getFileName());
 	}
 	
 	@Override
@@ -41,12 +42,12 @@ public class DownloadFileResource extends ResourceStreamResource {
 			
 			@Override
 			public void write(OutputStream output) throws IOException {
-				output.write(downloadFile.getByteArr());
+				output.write(DownloadFileResource.this.downloadFile.getByteArr());
 			}
 			
 			@Override
 			public Bytes length() {
-				return downloadFile.length();
+				return DownloadFileResource.this.downloadFile.length();
 			}
 		};
 	}

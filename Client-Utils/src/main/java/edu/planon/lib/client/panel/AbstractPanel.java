@@ -17,6 +17,9 @@ public abstract class AbstractPanel extends Panel {
 	public AbstractPanel(String wicketId, final IModel<?> model) {
 		super(wicketId, model);
 		
+		//prevents warning the user before leaving the page.
+		this.popupWindow.showUnloadConfirmation(false);
+		
 		this.popupWindow.setCloseButtonCallback((target) -> {
 			ModalWindow.closeCurrent(target);
 			return false;

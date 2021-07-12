@@ -8,12 +8,12 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.Model;
 
-import edu.planon.lib.client.common.behavior.IAjaxEventListener;
-import edu.planon.lib.client.common.behavior.IAjaxEventSource;
-import edu.planon.lib.client.common.ui.AjaxIconLink;
-import edu.planon.lib.client.dto.PnFieldDTO;
-import edu.planon.lib.client.exception.PnClientRuntimeException;
-import edu.planon.lib.client.field.util.PnFieldTypeUtils;
+import edu.planon.lib.client.common.component.AjaxIconLink;
+import edu.planon.lib.client.common.dto.PnFieldDTO;
+import edu.planon.lib.client.common.event.IAjaxEventListener;
+import edu.planon.lib.client.common.event.IAjaxEventSource;
+import edu.planon.lib.client.common.exception.PnClientRuntimeException;
+import edu.planon.lib.client.common.util.PnFieldTypeUtils;
 import edu.planon.lib.client.panel.AbstractPanel;
 
 public abstract class AbstractPnFieldEditor extends AbstractPanel implements IAjaxEventSource {
@@ -29,23 +29,15 @@ public abstract class AbstractPnFieldEditor extends AbstractPanel implements IAj
 		this.fieldDTO = fieldDTO;
 		this.setOutputMarkupId(true);
 		
-
-		this.add(createInfoButton("infoButton"));
-		this.add(createReferenceButton("refButton"));
-	}
-	
-	protected void onInitialize() {
-		super.onInitialize();
-		
-		
-		
+		this.add(this.createInfoButton("infoButton"));
+		this.add(this.createReferenceButton("refButton"));
 	}
 	
 	protected AjaxIconLink createInfoButton(String wicketId) {
-		String iconName = PnFieldTypeUtils.getEditorInfoIcon(fieldDTO.getFieldType());
-		String tooltip = PnFieldTypeUtils.getEditorInfoTooltip(fieldDTO.getFieldType());
+		String iconName = PnFieldTypeUtils.getEditorInfoIcon(this.fieldDTO.getFieldType());
+		String tooltip = PnFieldTypeUtils.getEditorInfoTooltip(this.fieldDTO.getFieldType());
 		
-		this.infoButton = new AjaxIconLink(wicketId, "editor-link pnicon-"+iconName);
+		this.infoButton = new AjaxIconLink(wicketId, "editor-link pnicon-" + iconName);
 		this.infoButton.add(new AttributeAppender("title", tooltip, " "));
 		this.infoButton.setVisible(false);
 		return this.infoButton;
@@ -56,10 +48,10 @@ public abstract class AbstractPnFieldEditor extends AbstractPanel implements IAj
 	}
 	
 	protected AjaxIconLink createReferenceButton(String wicketId) {
-		String iconName = PnFieldTypeUtils.getEditorReferenceIcon(fieldDTO.getFieldType());
-		String tooltip = PnFieldTypeUtils.getEditorReferenceTooltip(fieldDTO.getFieldType());
+		String iconName = PnFieldTypeUtils.getEditorReferenceIcon(this.fieldDTO.getFieldType());
+		String tooltip = PnFieldTypeUtils.getEditorReferenceTooltip(this.fieldDTO.getFieldType());
 		
-		this.referenceButton = new AjaxIconLink(wicketId, "editor-link pnicon-"+iconName);
+		this.referenceButton = new AjaxIconLink(wicketId, "editor-link pnicon-" + iconName);
 		this.referenceButton.add(new AttributeAppender("title", tooltip, " "));
 		this.referenceButton.setVisible(false);
 		return this.referenceButton;
@@ -78,11 +70,11 @@ public abstract class AbstractPnFieldEditor extends AbstractPanel implements IAj
 	public abstract FormComponent<?> getFormComponent();
 	
 	protected final void setEventSource(IAjaxEventSource eventSource) throws PnClientRuntimeException {
-		if(this.eventSource != null) {
+		if (this.eventSource != null) {
 			throw new PnClientRuntimeException("EventSource has already been set and it can't be set again.");
 		}
 		
-		if(this.eventListeners.size() > 0) {
+		if (this.eventListeners.size() > 0) {
 			eventSource.addEventListener(this.eventListeners);
 		}
 		
@@ -91,7 +83,7 @@ public abstract class AbstractPnFieldEditor extends AbstractPanel implements IAj
 	
 	@Override
 	public final void addEventListener(IAjaxEventListener eventListener) {
-		if(this.eventSource != null) {
+		if (this.eventSource != null) {
 			this.eventSource.addEventListener(eventListener);
 		}
 		else {
@@ -102,7 +94,7 @@ public abstract class AbstractPnFieldEditor extends AbstractPanel implements IAj
 	@Override
 	public final void addEventListener(List<IAjaxEventListener> eventListeners) {
 		if (eventListeners != null && !eventListeners.isEmpty()) {
-			if(this.eventSource != null) {
+			if (this.eventSource != null) {
 				this.eventSource.addEventListener(eventListeners);
 			}
 			else {
@@ -113,7 +105,7 @@ public abstract class AbstractPnFieldEditor extends AbstractPanel implements IAj
 	
 	@Override
 	public final List<IAjaxEventListener> getEventListeners() {
-		if(this.eventSource != null) {
+		if (this.eventSource != null) {
 			return this.eventSource.getEventListeners();
 		}
 		return Collections.unmodifiableList(this.eventListeners);

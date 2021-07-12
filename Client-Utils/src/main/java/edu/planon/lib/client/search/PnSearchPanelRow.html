@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[PnSearchBarPanel]</title>
+</head>
+<body>
+	<wicket:panel>
+		<div class="quickSearchBar pn-searchpanel">
+			<div class="searchExpression">
+				<select wicket:id="searchField" class="pn-select-icon" aria-label="Search expression"></select>
+			</div>
+			<div class="searchOperators">
+				<select wicket:id="searchOperator" class="pn-select-icon" aria-label="Search operator"></select>
+			</div>
+			<div class="searchEditorContainer">
+				<div class="searchEditors">
+					<div wicket:id="searchInputEditor" class="searchEditor"></div>
+				</div>
+				<div class="searchButton clear">
+					<a wicket:id="clearButton" class="btn-28 pn-font-icon " role="button" title="Clear"></a>
+				</div>
+			</div>
+		</div>
+	</wicket:panel>
+</body>
+</html>

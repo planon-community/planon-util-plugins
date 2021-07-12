@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org">
+<head>
+<title>[PnReferenceMultiPickerPanel]</title>
+</head>
+<body>
+	<wicket:panel>
+		<div class="modalwindow" style="display: flex; flex-direction: column;">
+			<div class="dialogContentPanel" style="display:flex; flex-direction:column; overflow: hidden; flex: 1;">
+				<div class="proxy-container flex-container vertical-nowrap" style="overflow: hidden;flex: 1 1 auto;">
+					<div class="topPanel">
+						<div>
+							<div wicket:id="searchFilter"></div>
+						</div>
+					</div>
+					<!-- when multiple selection enabled, this will be used -->
+					<div class="mainPanel pn-mainContentPanel" style="flex: 1 1 auto;">
+						<div class="PnWebPalettePopupProxy" style="display: flex; flex-direction: column;">
+							<div wicket:id="available" class="ProxyLabel h4">Available</div>
+							<div wicket:id="filterTable"></div>
+						</div>
+						
+						<div class="PnWebPalettePopupArrows pn-arrow-btns-wrapper flex-container vertical-nowrap">
+							<span class="pn-divider-center flex-item grow-default"></span>
+							<a wicket:id="rightButton" class="btn-square-2  pn-arrow-btn" title="Move right"></a>
+							<a wicket:id="leftButton" class="btn-square-2  pn-arrow-btn" title="Move left"></a>
+							<span class="pn-divider-center flex-item grow-default"></span>
+						</div>
+						
+						<div class="chosenProxyLabel" style="display: flex; flex-direction: column;">
+							<div wicket:id="inUse" class="ProxyLabel h4">In use</div>
+							<div wicket:id="selectedTable"></div>
+						</div>
+					</div>
+				</div>
+				<div class="baseButtonPanel">
+					<input type="button" class="btn btn-primary okButton" wicket:id="btnOk" />
+					<input type="button" class="btn btn-default cancelButton" wicket:id="btnCancel" />
+				</div>
+			</div>
+		</div>
+	</wicket:panel>
+</body>
+</html>

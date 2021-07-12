@@ -12,10 +12,10 @@
     <version>5</version>
   </parent>
   
-  <groupId>edu.planon.lib</groupId>
+  <groupId>edu.planon.lib.client</groupId>
   <artifactId>Client-Utils</artifactId>
-  <version>1.0.0</version>
-  <packaging>jar</packaging>
+  <version>2.0.0</version>
+  <packaging>bundle</packaging>
   
   <name>Planon Edu Community Client Web Components</name>
   
@@ -23,7 +23,7 @@
     <dependency>
       <groupId>edu.planon.lib</groupId>
       <artifactId>ESAPI-Utils</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
     </dependency>
     
     <dependency>
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>edu.planon.pom</groupId>
       <artifactId>pomWicket</artifactId>
-      <version>4</version>
+      <version>5</version>
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
@@ -58,6 +58,36 @@
       </resource>
     </resources>
     <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>3.5.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <finalName>${project.artifactId}-${project.version}</finalName>
+          <instructions>
+            <Implementation-Version>${project.version}</Implementation-Version>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Bundle-Activator />
+            <Private-Package />
+            <Export-Package>${project.groupId}.*</Export-Package>
+            <Import-Package>org.apache.wicket.*,org.apache.log4j.*,!javax.jcr.*,!javax.servlet.*,!org.slf4j,!org.apache.*,
+              !nl.planon.ares,!nl.planon.hades.beans,!nl.planon.hades.client.resourceinitiators,
+              !nl.planon.hades.client.resourcelocators.login,!nl.planon.hades.valueobject.state,
+              !nl.planon.hades.field.definition,org.osgi.framework,!nl.planon.enterprise.service.api.impl,!javax.xml.*,!javax.security.*,
+              !nl.planon.hades.proxyview,
+              !nl.planon.hades.authentication,nl.planon.hades.errorhandling,!javax.xml.parsers;version=!,
+              nl.planon.enterprise.service.api.factory.*;version=!,
+              !nl.planon.json.server.container.services.common.*;version=!,
+              !nl.planon.json.server.container.services.interfaces.*;version=!,
+              *
+            </Import-Package>
+            <Embed-Dependency>ESAPI-Utils,PL-Base-Utils;scope=compile|runtime</Embed-Dependency>
+            <Embed-Directory>lib</Embed-Directory>
+            <Embed-Transitive>true</Embed-Transitive>
+          </instructions>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>

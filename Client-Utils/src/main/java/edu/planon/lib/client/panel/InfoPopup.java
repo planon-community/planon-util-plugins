@@ -11,7 +11,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
 import edu.planon.lib.client.common.behavior.CloseModalBehavior;
-import edu.planon.lib.client.common.behavior.IAjaxEventListener;
+import edu.planon.lib.client.common.event.IAjaxEventListener;
 
 public class InfoPopup extends Panel {
 	private static final long serialVersionUID = 1L;

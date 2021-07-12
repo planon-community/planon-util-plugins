@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.PropertyModel;
 
 import edu.planon.lib.client.common.behavior.PnComponentUpdatingBehavior;
-import edu.planon.lib.client.dto.PnFieldDTO;
+import edu.planon.lib.client.common.dto.PnFieldDTO;
 
 public class PnTextFieldEditor extends AbstractPnFieldEditor {
 	private static final long serialVersionUID = 1L;
@@ -18,12 +18,12 @@ public class PnTextFieldEditor extends AbstractPnFieldEditor {
 		
 		this.setOutputMarkupId(true);
 		
-		this.editor = createEditor("fieldValueEditor", fieldDTO);
+		this.editor = this.createEditor("fieldValueEditor", fieldDTO);
 		this.editor.setLabel(new PropertyModel<String>(fieldDTO, "label"));
 		this.editor.setRequired(fieldDTO.isRequired());
 		
 		//change the type if needed
-		if(Number.class.isAssignableFrom(fieldDTO.getDataType())) {
+		if (Number.class.isAssignableFrom(fieldDTO.getDataType())) {
 			this.editor.add(new AttributeModifier("type", "number"));
 		}
 		
@@ -31,7 +31,7 @@ public class PnTextFieldEditor extends AbstractPnFieldEditor {
 		this.fieldBehavior = new PnComponentUpdatingBehavior("blur");
 		this.fieldBehavior.addEventListener((event, sourceComponent, target) -> target.add(this.editor));
 		this.editor.add(this.fieldBehavior);
-		setEventSource(this.fieldBehavior);
+		this.setEventSource(this.fieldBehavior);
 		
 		this.add(this.editor);
 	}
