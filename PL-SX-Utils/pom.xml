@@ -13,7 +13,7 @@
 
   <groupId>edu.planon.lib.sx</groupId>
   <artifactId>PL-SX-Utils</artifactId>
-  <version>3.0.0</version>
+  <version>3.1.0</version>
   <packaging>jar</packaging>
 
   <name>Planon Edu Community SX Helper Utilities</name>
