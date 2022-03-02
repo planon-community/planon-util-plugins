@@ -6,7 +6,7 @@
 <title>[PnBooleanFieldEditor]</title>
 </head>
 <body>
-	<wicket:extend>
+	<wicket:panel>
 		<span class="booleanRadioGroup">
 			<span wicket:id="radioGroup" role="radiogroup">
 				<span class="radio item0 true">
@@ -24,6 +24,11 @@
 			</span>
 		</span>
 		<wicket:child />
-	</wicket:extend>
+		<div class="editor-links">
+			<a wicket:id="infoButton" class="editor-link" role="button" href="#"></a>
+			<a wicket:id="refButton" class="editor-link" role="button" href="#"></a>
+		</div>
+		<div wicket:id="popupWindow"></div>
+	</wicket:panel>
 </body>
 </html>
