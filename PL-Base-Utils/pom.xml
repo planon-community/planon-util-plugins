@@ -9,12 +9,12 @@
   <parent>
     <groupId>edu.planon.pom</groupId>
     <artifactId>pomBase</artifactId>
-    <version>2</version>
+    <version>6</version>
   </parent>
 
   <groupId>edu.planon.lib.common</groupId>
   <artifactId>PL-Base-Utils</artifactId>
-  <version>3.0.0</version>
+  <version>3.2.0</version>
   <packaging>jar</packaging>
 
   <name>Planon Edu Community Utilities</name>
